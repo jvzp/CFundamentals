@@ -24,62 +24,58 @@ double calc_cf(long number) {
   
 }
 
-double calc_kc(long number) {
-  
-  return number;
-  
-}
-double calc_kf(long number) {
-  
-  return number;
-  
-}
-double calc_fc(long number) {
-  
-  return number;
-  
-}
-
 int main( int argc, char * argv[] ) {
   
-  if( strcmp(argv[1],"c2k") == 0 ) {
+  if(argv[2] == NULL) {
     
-    long val = 0;
-    errno = 0;
+    fprintf(stderr, "Please enter a temperature to convert.\n");
+    exit(EXIT_FAILURE);
     
-    val = strtol(argv[2], NULL, 10);
+  } else if( strcmp(argv[1],"c2k") == 0 ) {
     
-    if ((errno == ERANGE ) || (errno != 0 && val == 0)) {
+    char * end;
+    int res_help = strtol(argv[2], &end, 10);
+
+    if (*end) {
       
-	perror("strtol");
-	exit(EXIT_FAILURE);
-	
+      printf("Conversion error, non-convertible part: %s\n", end);
+      
     } else {
       
-      printf("The temperature in Kelvin is: %f\n", calc_ck(val));
+      printf("The temperature in Kelvin is: %f\n", calc_ck(res_help));
       
     }
     
   } else if ( strcmp(argv[1],"f2k") == 0 ) {
     
-    printf("The temperature in Kelvin is: %f\n", calc_fk((int)atoi(argv[2])));
+    char * end;
+    int res_help = strtol(argv[2], &end, 10);
+
+    if (*end) {
+      
+      printf("Conversion error, non-convertible part: %s\n", end);
+      
+    } else {
+      
+      printf("The temperature in Kelvin is: %f\n", calc_fk(res_help));
+      
+    }
     
   } else if ( strcmp(argv[1],"c2f") == 0 ) {
     
-    printf("The temperature in Fahrenheit is: %f\n", calc_cf((int)atoi(argv[2])));
+    char * end;
+    int res_help = strtol(argv[2], &end, 10);
+
+    if (*end) {
+      
+      printf("Conversion error, non-convertible part: %s\n", end);
+      
+    } else {
+      
+      printf("The temperature in Fahrenheit is: %f\n", calc_cf(res_help));
+      
+    }
     
-  } /*else if( strcmp(argv[1],"k2c") == 0 ) {
-    
-    printf("The temperature in Celsius is: %e\n", calc_kc((int)atoi(argv[2])));
-    
-  } else if ( strcmp(argv[1],"k2f") == 0 ) {
-    
-    printf("The temperature in Fahrenheit is: %e\n", calc_kf((int)atoi(argv[2])));
-    
-  } else if ( strcmp(argv[1],"f2c") == 0 ) {
-    
-    printf("The temperature in Celsius is: %e\n", calc_fc((int)atoi(argv[2])));
-    
-  } */
+  }
   
 }
